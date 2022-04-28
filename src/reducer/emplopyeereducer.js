@@ -9,7 +9,7 @@ const emplopyeereducer = (state = initialState, action) => {
     // console.log(action.payload);
       return {
         ...state,
-        loading:true
+        loading:true      
       };
 
       case "READ":   
