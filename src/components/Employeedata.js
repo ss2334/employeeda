@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { readEmployeeeData } from "../action";
+import { readEmployeeData } from "../action";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./employee.css";
@@ -9,12 +9,9 @@ import { clear } from "@testing-library/user-event/dist/clear";
 const Employeedata = () => {
   const [search, setSearch] = useState("");
   const dispatch = useDispatch();
-  // const handlechange = (e) => {
-  //   setSearch(e.target.value);
-  // };
 
   const { list, loading } = useSelector((state) => state.employee);
-  console.log(list);
+  //console.log(list);
 
   // const myFunction = (data) => {
   //   var input = document.getElementById("searchinput");
@@ -46,20 +43,23 @@ const Employeedata = () => {
   //       Image: "img1",
   //     },
   //   ];
-
   useEffect(() => {
-    dispatch(readEmployeeeData());
+    dispatch(readEmployeeData());
   }, []);
+
+  // useEffect(() => {
+  //   dispatch(createEmployeeData());
+  // }, []);
 
   // const add=()=>{
   //     console.log("Hello");
   // }
 
-  let searchList = list;//doubt
-  searchList = searchList.filter((i) => i.Make_Name.includes(search));
+  let searchList = list; //doubt
+  searchList = searchList.filter((i) => i.title.includes(search));
   return (
     <div>
-      <h1>Car List</h1>
+      <h1>Products Data</h1>
       <div class="btn-group">
         <input
           id="searchinput"
@@ -77,29 +77,35 @@ const Employeedata = () => {
           <div>
             <table id="customers">
               <tr>
-                <th>MAKE_ID</th>
-                <th>MAKE_NAME</th>
+                <th>id</th>
+                <th>title</th>
+                <th>price</th>
+                <th>description</th>
+                <th>category</th>
+                <th>image</th>
               </tr>
               {searchList.map((p) => (
-                <tr key={p.Make_ID}>
+                <tr key={p.id}>
                   <td>
-                    <a href="#">{p.Make_ID}</a>
+                    <a href="#">{p.id}</a>
                   </td>
                   <td>
-                    <a href="#">{p.Make_Name}</a>
+                    <a href="#">{p.title}</a>
+                  </td>
+                  <td>
+                    <a href="#">{p.price}</a>
+                  </td>
+                  <td>
+                    <a href="#">{p.description}</a>
+                  </td>
+                  <td>
+                    <a href="#">{p.category}</a>
+                  </td>
+                  <td>
+                    <a href="#">{p.image}</a>
                   </td>
                 </tr>
               ))}
-              {/* {list.filter((p) => (
-                <tr key={p.Make_ID}>
-                  <td>
-                    <a href="#">{p.Make_ID}</a>
-                  </td>
-                  <td>
-                    <a href="#">{p.Make_Name.includes(`${search}`)}</a>
-                  </td>
-                </tr>
-              ))} */}
             </table>
           </div>
         </div>
