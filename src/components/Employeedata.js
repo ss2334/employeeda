@@ -55,7 +55,7 @@ const Employeedata = () => {
   //     console.log("Hello");
   // }
 
-  let searchList = list;
+  let searchList = list;//doubt
   searchList = searchList.filter((i) => i.Make_Name.includes(search));
   return (
     <div>
