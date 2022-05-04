@@ -33,10 +33,10 @@ const emplopyeereducer = (state = initialState, action) => {
       return {
         ...state,
         list: [
-          {
-            id: action.payload.id,
-            data: action.payload.data,
-          },
+          // {
+          //   id: action.payload.id,
+          //   data: action.payload.data,
+          // },
           ...state.list,
         ],
       };
@@ -44,13 +44,13 @@ const emplopyeereducer = (state = initialState, action) => {
     case "UPDATE":
       return {
         ...state,
-        list: [
-          {
-            id: action.payload.id,
-            data: action.payload.data,
-          },
-          ...state.list,
-        ],
+        // list: [
+        //   {
+        //     id: action.payload.id,
+        //     data: action.payload.data,
+        //   },
+        //   ...state.list,
+        // ],
       };
       break;
     case "DELETE":

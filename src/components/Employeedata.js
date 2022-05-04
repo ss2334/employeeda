@@ -1,13 +1,27 @@
 import React, { useEffect } from "react";
-import { readEmployeeData } from "../action";
+import {
+  readEmployeeData,
+  deleteTodo,
+  createEmployeeData,
+  updateEmployeeData,
+} from "../action";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./employee.css";
 import emplopyeereducer from "../reducer/emplopyeereducer";
 import { clear } from "@testing-library/user-event/dist/clear";
+import Model from "./Model";
+//import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Employeedata = () => {
   const [search, setSearch] = useState("");
+  const [modelData, setModelData] = useState({
+    id: "",
+    title: "",
+    price: "",
+    description: "",
+    category: "",
+  });
   const dispatch = useDispatch();
 
   const { list, loading } = useSelector((state) => state.employee);
@@ -43,9 +57,14 @@ const Employeedata = () => {
   //       Image: "img1",
   //     },
   //   ];
+
   useEffect(() => {
     dispatch(readEmployeeData());
   }, []);
+
+  // const DeletePerticularEmployeeData = () => {
+  //   alert("Hello");
+  // };
 
   // useEffect(() => {
   //   dispatch(createEmployeeData());
@@ -56,9 +75,11 @@ const Employeedata = () => {
   // }
 
   let searchList = list; //doubt
-  searchList = searchList.filter((i) => i.title.includes(search));
+  // searchList = searchList.filter((i) => i.title.includes(search));
   return (
     <div>
+      <Model modal={modelData} />
+
       <h1>Products Data</h1>
       <div class="btn-group">
         <input
@@ -82,30 +103,64 @@ const Employeedata = () => {
                 <th>price</th>
                 <th>description</th>
                 <th>category</th>
-                <th>image</th>
+                {/* <th>image</th> */}
               </tr>
-              {searchList.map((p) => (
-                <tr key={p.id}>
-                  <td>
-                    <a href="#">{p.id}</a>
-                  </td>
-                  <td>
-                    <a href="#">{p.title}</a>
-                  </td>
-                  <td>
-                    <a href="#">{p.price}</a>
-                  </td>
-                  <td>
-                    <a href="#">{p.description}</a>
-                  </td>
-                  <td>
-                    <a href="#">{p.category}</a>
-                  </td>
-                  <td>
+              {searchList
+                .filter((ele) => {
+                  if (search == "") {
+                    return ele;
+                  } else if (
+                    ele.title.toLowerCase().includes(search.toLowerCase())
+                  ) {
+                    return ele;
+                  }
+                })
+                .map((p) => (
+                  <tr key={p.id}>
+                    <td>
+                      <a href="#">{p.id}</a>
+                    </td>
+                    <td>
+                      <a href="#">{p.title}</a>
+                    </td>
+                    <td>
+                      <a href="#">{p.price}</a>
+                    </td>
+                    <td>
+                      <a href="#">{p.description}</a>
+                    </td>
+                    <td>
+                      <a href="#">{p.category}</a>
+                    </td>
+                    {/* <td>
                     <a href="#">{p.image}</a>
-                  </td>
-                </tr>
-              ))}
+                  </td> */}
+                    <td>
+                      <a href="#">
+                        <button
+                          className="btn btn-primary"
+                          type="submit"
+                          onClick={() => dispatch(deleteTodo(p.id))}
+                        >
+                          Delete
+                        </button>
+                      </a>
+                    </td>
+                    <td>
+                      <a href="#">
+                        <button
+                          className="btn btn-primary"
+                          type="button"
+                          data-toggle="modal"
+                          data-target="#myModal"
+                          onClick={() => setModelData(p)}
+                        >
+                          Update
+                        </button>
+                      </a>
+                    </td>
+                  </tr>
+                ))}
             </table>
           </div>
         </div>

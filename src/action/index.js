@@ -1,22 +1,25 @@
 import axios from "axios";
 import { useDispatch as dispatch } from "react-redux";
 
-export const createEmployeeData = () => async (dispatch) => {
+export const createEmployeeData = (data1) => async (dispatch) => {
   try {
-    const data1 = {
-      title: "test product",
-      price: 13.5,
-      description: "lorem ipsum set",
-      image: "https://i.pravatar.cc",
-      category: "electronic",
-    };
+    // const data1 = {
+    //   id: id,
+    //   title: title,
+    //   price: price,
+    //   category: category,
+    // };
+    // console.log(data1);
 
     const res = await axios.post("https://fakestoreapi.com/products", data1);
-    console.log(res);
+    //console.log(res);
     dispatch({
       type: "CREATE",
       payload: res.data,
     });
+    return {
+      type: "CREATE_DATA_SUCCESS",
+    };
   } catch (e) {
     console.log(e);
   }
@@ -41,28 +44,32 @@ export const readEmployeeData = () => async (dispatch) => {
   }
 };
 
-export const updateEmployeeData = () => {
+export const updateEmployeeData = (id, user) => async (dispatch) => {
   try {
-    const data = {
-      title: "test product",
-      price: 13.5,
-      description: "lorem ipsum set",
-      image: "https://i.pravatar.cc",
-      category: "electronic",
-    };
-    const res = axios.put("https://fakestoreapi.com/products/7", data);
+    // const data = {
+    //   title: "test product",
+    //   price: 13.5,
+    //   description: "lorem ipsum set",
+    //   image: "https://i.pravatar.cc",
+    //   category: "electronic",
+    // };
+    const res = await axios.put(
+      `https://fakestoreapi.com/products/${id}`,
+      user
+    );
     console.log(res);
     dispatch({
       type: "UPDATE",
-      payload: res.data,
+      // payload: res.data,
     });
   } catch (e) {
     console.log(e);
   }
 };
-export const deleteEmployeeData = (id) => {
+export const deleteTodo = (id) => (dispatch) => {
   try {
-    const res = axios.delete("https://fakestoreapi.com/products/6");
+    const res = axios.delete(`https://fakestoreapi.com/products/${id}`); // js code
+    //console.log(id);
     dispatch({
       type: "DELETE",
       id,
