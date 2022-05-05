@@ -18,6 +18,7 @@ const Model = ({ modal }) => {
   //     price,
   //     category,
   //   };
+
   const [error, setError] = useState("");
   const [show, setShow] = useState(true);
   // const [edit, setEdit] = useState("");
@@ -60,25 +61,19 @@ const Model = ({ modal }) => {
   return (
     <div>
       {show ? (
-        <div className="container">
-          <button
+        <div className="modalBackground">
+          {/* <button
             type="button"
             className="btn btn-info btn-lg"
             data-toggle="modal"
             data-target="#myModal"
           >
             Open Modal
-          </button>
+          </button> */}
 
           <div className="modal fade in" id="myModal" role="dialog">
             <div className="modal-dialog">
               <div className="modal-content">
-                <div className="modal-header">
-                  <button type="button" className="close" data-dismiss="modal">
-                    &times;
-                  </button>
-                  <h4 className="modal-title">Modal Header</h4>
-                </div>
                 <div className="modal-body">
                   {error && <h1>{error}</h1>}
                   <input

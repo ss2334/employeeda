@@ -10,11 +10,12 @@ import { useSelector, useDispatch } from "react-redux";
 import "./employee.css";
 import emplopyeereducer from "../reducer/emplopyeereducer";
 import { clear } from "@testing-library/user-event/dist/clear";
-import Model from "./Model";
+import Modeldata from "./Modeldata";
 //import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Employeedata = () => {
   const [search, setSearch] = useState("");
+  const [openModel, setOpenModel] = useState(false);
   const [modelData, setModelData] = useState({
     id: "",
     title: "",
@@ -58,6 +59,11 @@ const Employeedata = () => {
   //     },
   //   ];
 
+  const trigerDataModel = (ele) => {
+    setModelData(ele);
+    setOpenModel(true);
+  };
+
   useEffect(() => {
     dispatch(readEmployeeData());
   }, []);
@@ -78,9 +84,8 @@ const Employeedata = () => {
   // searchList = searchList.filter((i) => i.title.includes(search));
   return (
     <div>
-      <Model modal={modelData} />
-
-      <h1>Products Data</h1>
+      {/* <Modeldata modal={modelData} /> */}
+      <div className="titleData">Products Data</div>
       <div class="btn-group">
         <input
           id="searchinput"
@@ -90,7 +95,16 @@ const Employeedata = () => {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
-
+      <button
+        className="openModelBtn"
+        onClick={() => {
+          setOpenModel(true);
+          setModelData({});
+        }}
+      >
+        Open Model
+      </button>
+      {openModel && <Modeldata closeModal={setOpenModel} modal={modelData} />}
       {loading ? (
         <div className="loader"></div>
       ) : (
@@ -153,7 +167,7 @@ const Employeedata = () => {
                           type="button"
                           data-toggle="modal"
                           data-target="#myModal"
-                          onClick={() => setModelData(p)}
+                          onClick={() => trigerDataModel(p)}
                         >
                           Update
                         </button>

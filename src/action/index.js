@@ -45,14 +45,14 @@ export const readEmployeeData = () => async (dispatch) => {
 };
 
 export const updateEmployeeData = (id, user) => async (dispatch) => {
-  try {
+  try {       
     // const data = {
     //   title: "test product",
     //   price: 13.5,
     //   description: "lorem ipsum set",
     //   image: "https://i.pravatar.cc",
     //   category: "electronic",
-    // };
+    // };    
     const res = await axios.put(
       `https://fakestoreapi.com/products/${id}`,
       user

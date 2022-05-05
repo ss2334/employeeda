@@ -21,10 +21,12 @@
   background-color: #04AA6D;
   color: white;
 }
-
+.titleData{
+   font-size: 30px;
+}
 input[type=text], select{
   padding: 8px;
-  width: 34%;
+  width: 115%;
   margin-bottom: 20px;
 }
 .loader{
